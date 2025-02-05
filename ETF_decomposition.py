@@ -11,23 +11,8 @@ import os
 import requests
 import json
 
-
-# =============================================================================
-# Unused
-import yfinance as yf
-from pyetfdb_scraper.etf import ETF
-# =============================================================================
-
 wd = 'C:\ArjunDesktop\iCloudDrive\ETF decomposition'
 os.chdir(wd)
-
-
-# dummy portfolio file
-port = pd.read_excel("portfolio_allocation.xlsx") # read excel to get portfolio positions
-etf_list = [x for x in port.ticker[port.asset=='etf']] # filter the etf list from portfolio
-etf_holdings_dict = dict_etf_holdings(etf_list)     # dictionary of etf to constituent stocks
-decomposed_stocks = etf_decomposed(port,etf_holdings_dict ) # function decomposing port into constituent stocks
-decomposed_stocks.to_excel("decomposed_stock_holdings.xlsx") # export the stock holdings to excel
 
 # Actual curated report from IBKR of current positions:
 real_port = pd.read_csv("CurrentPositions_1.31.2025.csv") # read excel to get current portfolio positions
@@ -35,13 +20,8 @@ etf_list = [x for x in real_port.Symbol[real_port.SubCategory=='ETF']] # filter 
 etf_metadata      = store_etf_metadata(etf_list)  # meta data for all etfs in the list
 etf_holdings_dict = dict_etf_holdings(etf_list, etf_metadata) # dictionary of etf to constituent stocks
 decomposed_stocks_JanEnd2025 = etf_decomposer(real_port, etf_holdings_dict) # function decomposing port into constituent stocks
-
-
 decomposed_stocks_JanEnd2025['port_weight'] = decomposed_stocks_JanEnd2025.allocation/decomposed_stocks_JanEnd2025.allocation.sum()
 decomposed_stocks_JanEnd2025.to_excel("decomposed_stock_holdings_JanEnd2025.xlsx") # export the stock holdings to excel
-
-#%% Rough Work
-
 
 # %% Data manipulation and calculations
 
@@ -138,9 +118,6 @@ def etf_holdings_alpha_vantage(etf_ticker, etfdata):
     df["weight"] = df["weight"].astype(float)
     
     # if the sum of percent constituent is not 100%
-    # normalize the weights to ultimately be equal to 100
-    ###
-    ### need to update and check the issue with non 100% weights
     if sum(df.weight) != 1:
         print("portfolio weights did not add up to 100% for ",etf_ticker,". Total weight is: ", sum(df.weight)*100)
         df.weight = df.weight/sum(df.weight)
