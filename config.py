@@ -8,20 +8,29 @@ Created on Sun Feb 16 14:56:38 2025
 
 import os
 
-system = 'mac'
-#system = 'windows'
+# Detect system type
+system = 'windows' if os.name == 'nt' else 'mac'
 
 if system=='mac':
-    wd = '/Users/arjundeshpande/Library/Mobile Documents/com~apple~CloudDocs/ETF decomposition/App'
+    Base_dir = '/Users/arjundeshpande/Library/Mobile Documents/com~apple~CloudDocs/ETF decomposition/App'
 else:
-    wd = 'C:\ArjunDesktop\iCloudDrive\ETF decomposition\App'
+    Base_dir = 'C:\ArjunDesktop\iCloudDrive\ETF decomposition\App'
 
-os.chdir(wd)
+#os.chdir(Base_dir)
 
-data_dir = os.path.join(wd, "data")
+Data_dir = os.path.join(Base_dir, "data")
 
-class_dir = os.path.join(wd, "classes")
+Class_dir = os.path.join(Base_dir, "classes")
 
-script_dir = os.path.join(wd, "scripts")
+Script_dir = os.path.join(Base_dir, "scripts")
 
-os.chdir(script_dir)
+# Define file paths
+Portfolio_file = os.path.join(Data_dir, "CurrentPositions_1.31.2025.csv")
+Etf_data_file = os.path.join(Data_dir, "etf_metadata.json")
+Stocksdb_file = os.path.join(Data_dir, "stocks.db")
+
+# API Key (if needed)
+AV_api_key="KZDZF6D34D3E50IG"
+
+#os.chdir(Script_dir)
+

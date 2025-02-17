@@ -20,10 +20,10 @@ class MarketData:
     Also fetches data from Alpha Vantage, Yahoo Finance, and other APIs.
     """
 
-    def __init__(self, db_name="stocks.db", meta_file="etf_metadata.json", api_key="KZDZF6D34D3E50IG"):
+    def __init__(self, db_name="stocks.db", meta_file="etf_metadata.json", av_api_key="KZDZF6D34D3E50IG"):
         self.db_name = db_name
         self.meta_file = meta_file
-        self.api_key = api_key
+        self.api_key = av_api_key
         self.meta_data = self.load_meta()
 
     # 🔹 Load ETF Metadata from File
@@ -63,7 +63,7 @@ class MarketData:
     # 🔹 Fetch ETF Data from Alpha Vantage
     def _fetch_alphavantage_etf_data(self, etf_ticker):
         """Retrieve ETF holdings from Alpha Vantage."""
-        url = f"https://www.alphavantage.co/query"
+        url = "https://www.alphavantage.co/query"
         params = {"function": "ETF_PROFILE", "symbol": etf_ticker, "apikey": self.api_key}
         response = requests.get(url, params=params)
 
