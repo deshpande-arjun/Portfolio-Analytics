@@ -1,0 +1,7 @@
+yfinance
+json
+requests
+pandas
+numpy
+os
+
