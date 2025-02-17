@@ -9,7 +9,7 @@ Created on Sun Feb 16 12:06:22 2025
 
 
 #%% Rough Work
-from portfolio_analytics.config import Class_dir, Data_dir, Base_dir, Portfolio_file
+from config import Class_dir, Data_dir, Base_dir, Portfolio_file
 
 import os
 import sys
@@ -21,7 +21,7 @@ sys.path.append(Class_dir)
 
 # Import necessary classes
 # Import necessary classes
-from portfolio_analytics.classes import MarketData, PortfolioDecomposer, PortfolioCalculations
+from classes import MarketData, PortfolioDecomposer, PortfolioCalculations
 
 # Initialize MarketData
 market_data = MarketData()
@@ -48,7 +48,7 @@ market_data = MarketData(db_name,meta_file)
 #etf_sectors_dict = market_data.get_etf_sectors()
 #etf_holdings_dict = market_data.get_etf_holdings()
 
-port_decomposer = PortfolioDecomposer(real_port, market_data)
+port_decomposer = PortfolioDecomposer(portfolio, market_data)
 
 port_to_stocks = port_decomposer.decompose_stocks()
 
