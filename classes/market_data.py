@@ -135,7 +135,14 @@ class MarketData:
         return etf_dict
     
     def get_etf_holdings(self, parameter = "holdings"):
-        return self._process_etf_data(parameter)
+        etf_dict = self._process_etf_data(parameter)
+        etf_dict = {
+            key: df.rename(columns={"symbol": "ticker", "description": "name"})
+            for key, df in etf_dict.items()
+            }
+
+        return etf_dict
+    
     
     def get_etf_sectors(self, parameter = "sectors"):
         return self._process_etf_data(parameter)
@@ -163,7 +170,7 @@ class MarketData:
     
         # Convert stock_list into a format for SQL IN clause
         placeholders = ','.join(['?'] * len(stock_list))
-        query = f"SELECT * FROM stock_universe_data WHERE ticker IN ({placeholders})"
+        query = f"SELECT * FROM stock_universe WHERE ticker IN ({placeholders})"
     
         # Fetch data as a Pandas DataFrame
         df = pd.read_sql_query(query, conn, params=stock_list)
