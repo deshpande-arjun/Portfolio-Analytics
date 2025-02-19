@@ -125,7 +125,13 @@ class MarketData:
             
             df = pd.DataFrame(data)
             # Convert numeric columns to float
-            df = df.apply(pd.to_numeric, errors='ignore')
+            #df = df.apply(pd.to_numeric, errors='ignore')
+            # updating the code with for loop as errors=ignore will not work in future pandas packages
+            for col in df.select_dtypes(include=['object', 'string']):  
+                try:
+                    df[col] = pd.to_numeric(df[col])  # Attempt conversion
+                except ValueError:
+                    pass  # Ignore errors manually
 
             if not df.empty:
                 etf_dict[ticker] = df

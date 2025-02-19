@@ -132,8 +132,8 @@ class PortfolioDecomposer:
         
         # Add the GICS sector to the existing port_to_stock:
         port_to_stocks = pd.merge(port_to_stocks, stock_data, how="inner", on=["ticker"])
-        port_to_stocks = port_to_stocks[['ticker', 'name_y', 'allocation','gics_sector' ]]
-        port_to_stocks = port_to_stocks.rename(columns={"name_y": "name"})
+        port_to_stocks = port_to_stocks[['ticker', 'name', 'allocation','gics_sector' ]]
+        #port_to_stocks = port_to_stocks.rename(columns={"name_y": "name"})
         
         port_to_sectors = port_to_stocks.groupby(['gics_sector'], as_index= False).agg({
             'allocation': 'sum'}) #, 'port_weight': 'sum' 

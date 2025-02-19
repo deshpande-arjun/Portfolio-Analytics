@@ -44,3 +44,4 @@ port_decomposer = PortfolioDecomposer(portfolio, market_data)
 
 port_to_stocks = port_decomposer.decompose_stocks()
 
+port_to_stocks2,port_to_sectors = port_decomposer.decompose_sectors()
